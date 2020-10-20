@@ -7,6 +7,10 @@ import java.util.Iterator;
 import java.util.StringJoiner;
 
 public class EksamenSBinTre<T> {
+
+    public static void main(String[] args){
+        System.out.println("test");
+    }
     private static final class Node<T>   // en indre nodeklasse
     {
         private T verdi;                   // nodens verdi
