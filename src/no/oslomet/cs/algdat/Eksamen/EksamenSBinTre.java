@@ -13,6 +13,10 @@ public class EksamenSBinTre<T> {
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
         System.out.println(tre.antall()); // Utskrift: 10
+        tre.leggInn(1);
+        System.out.println(tre.antall());
+        tre.leggInn(2);
+        System.out.println(tre.antall());
     }
 
     private static final class Node<T>   // en indre nodeklasse
