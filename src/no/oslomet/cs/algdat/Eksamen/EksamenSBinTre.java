@@ -1,16 +1,20 @@
 package no.oslomet.cs.algdat.Eksamen;
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class EksamenSBinTre<T> {
 
-    public static void main(String[] args){
-        System.out.println("test");
+    public static void main(String[] args) {
+        //EksamenSBinTre<String> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
+        //System.out.println(tre.antall);
+
+        Integer[] a = {4, 7, 2, 9, 5, 10, 8, 1, 3, 6};
+        EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
+        for (int verdi : a) tre.leggInn(verdi);
+        System.out.println(tre.antall()); // Utskrift: 10
     }
+
     private static final class Node<T>   // en indre nodeklasse
     {
         private T verdi;                   // nodens verdi
@@ -88,8 +92,32 @@ public class EksamenSBinTre<T> {
     }
 
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Objects.requireNonNull(verdi, "Ikke lov med nullverdier");
+
+        Node<T> p = rot, q = null;  // p starter i roten
+        int sammenligning = 0; // hjelpevariabel
+
+        while (p != null) {
+            q = p;                                           // q er forelder til p
+            sammenligning = comp.compare(verdi, p.verdi); // bruker komparatoren
+            p = sammenligning < 0 ? p.venstre : p.høyre; // flytter p
+        }
+
+        // p er nå null, dvs ute av treet, q er den siste vi passerte
+
+        // p = new Node<>(verdi); // oppretter ny node
+
+        if (q == null) {
+            rot = p; // p blir rotnode
+        } else if (sammenligning < 0) {
+            q.venstre = p; // venstre barn til q
+        } else {
+            q.høyre = p;
+        }
+        antall++;
+        return true;
     }
+
 
     public boolean fjern(T verdi) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
