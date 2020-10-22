@@ -6,17 +6,14 @@ import java.util.*;
 public class EksamenSBinTre<T> {
 
     public static void main(String[] args) {
-        EksamenSBinTre<String> treet = new EksamenSBinTre<>(Comparator.naturalOrder());
-        System.out.println(treet.antall);
-
-        Integer[] a = {4, 7, 2, 9, 5, 10, 8, 1, 3, 6};
+        Integer[] a = {4,7,2,9,4,10,8,7,4,6};
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
-        System.out.println(tre.antall()); // Utskrift: 10
-        tre.leggInn(1);
         System.out.println(tre.antall());
-        tre.leggInn(2);
-        System.out.println(tre.antall());
+        System.out.println(tre.antall(2));
+        System.out.println(tre.antall(4));
+        System.out.println(tre.antall(7));
+        System.out.println(tre.antall(10));
 
     }
 
@@ -110,7 +107,7 @@ public class EksamenSBinTre<T> {
 
         // p er nå null, dvs ute av treet, q er den siste vi passerte
 
-        // p = new Node<T>(verdi); // oppretter ny node
+        p = new Node<T>(verdi, q); // oppretter ny node    Oppdaterer foreldrenode
 
         if (q == null) {
             rot = p; // p blir rotnode
@@ -139,17 +136,16 @@ public class EksamenSBinTre<T> {
 
         while (denne != null) {
             int sammenligner = comp.compare(verdi, denne.verdi);
-            if (sammenligner < 0) {
-                denne = denne.venstre;
-            } else {
-                if (sammenligner == 0) {
-                    antallet++;
-                    denne = denne.høyre;
+            if (sammenligner < 0) denne = denne.venstre;
 
-                }
+            else {
+                if (sammenligner == 0) antallet++;
+
+                denne = denne.høyre;
             }
 
         }
+
         return antallet;
     }
 
