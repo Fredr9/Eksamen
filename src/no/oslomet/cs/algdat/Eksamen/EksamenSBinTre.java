@@ -133,9 +133,24 @@ public class EksamenSBinTre<T> {
     }
 
     public int antall(T verdi) {
+        Node<T> denne = rot;
 
-        return antall();
-    }
+        int antallet = 1;
+
+
+        while(denne != null){
+          if(denne.forelder == denne.venstre || denne.forelder == denne.høyre || denne == denne.forelder){
+              antallet++;
+
+          }
+          else if(denne.forelder == null){
+              return 0;
+            }
+        }
+        return antallet;
+        }
+
+
 
     public void nullstill() {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
