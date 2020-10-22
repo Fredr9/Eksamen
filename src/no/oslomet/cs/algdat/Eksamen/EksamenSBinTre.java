@@ -134,22 +134,24 @@ public class EksamenSBinTre<T> {
 
     public int antall(T verdi) {
         Node<T> denne = rot;
+        int antallet = 0;
 
-        int antallet = 1;
 
+        while (denne != null) {
+            int sammenligner = comp.compare(verdi, denne.verdi);
+            if (sammenligner < 0) {
+                denne = denne.venstre;
+            } else {
+                if (sammenligner == 0) {
+                    antallet++;
+                    denne = denne.høyre;
 
-        while(denne != null){
-          if(denne.forelder == denne.venstre || denne.forelder == denne.høyre || denne == denne.forelder){
-              antallet++;
-
-          }
-          else if(denne.forelder == null){
-              return 0;
+                }
             }
+
         }
         return antallet;
-        }
-
+    }
 
 
     public void nullstill() {
