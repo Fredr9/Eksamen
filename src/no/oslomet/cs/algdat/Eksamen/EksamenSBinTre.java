@@ -9,20 +9,7 @@ public class EksamenSBinTre<T> {
         Integer[] a = {4, 7, 2, 9, 4, 1, 2};
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
-        // System.out.println(tre.antall());
-        //System.out.println(tre.antall(2));
-        // System.out.println(tre.antall(4));
-        // System.out.println(tre.antall(7));
-        // System.out.println(tre.antall(10));
-        System.out.println(Arrays.toString(a));
-        //System.out.println(førstePostorden(tre.rot));
-        //System.out.println(førstePostorden(tre.rot));
 
-        System.out.println(tre.rot.venstre);
-
-
-
-        System.out.println(nestePostorden(tre.rot.venstre));
 
     }
 
@@ -208,7 +195,11 @@ public class EksamenSBinTre<T> {
 
 
     public void postorden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Node<T> p = rot; // starter i roten slik at man får med hele "treet"
+        p = førstePostorden(p);
+        while(true){
+            p = nestePostorden(p);
+        }
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
@@ -216,7 +207,7 @@ public class EksamenSBinTre<T> {
     }
 
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
     }
 
     public ArrayList<T> serialize() {
