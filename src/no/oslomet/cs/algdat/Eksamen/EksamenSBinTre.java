@@ -6,7 +6,7 @@ import java.util.*;
 public class EksamenSBinTre<T> {
 
     public static void main(String[] args) {
-        Integer[] a = {4, 7, 2, 9, 4};
+        Integer[] a = {4, 7, 2, 9, 4, 1, 2};
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
         // System.out.println(tre.antall());
@@ -15,8 +15,14 @@ public class EksamenSBinTre<T> {
         // System.out.println(tre.antall(7));
         // System.out.println(tre.antall(10));
         System.out.println(Arrays.toString(a));
-        System.out.println(førstePostorden(tre.rot));
-        System.out.println(nestePostorden(tre.rot));
+        //System.out.println(førstePostorden(tre.rot));
+        //System.out.println(førstePostorden(tre.rot));
+
+        System.out.println(tre.rot.venstre);
+
+
+
+        System.out.println(nestePostorden(tre.rot.venstre));
 
     }
 
@@ -181,20 +187,22 @@ public class EksamenSBinTre<T> {
             if (p == p.forelder.høyre) { // sjekker p er høyrebarn
                 p = p.forelder; // oppdaterer p
             } else {
-                if (p.forelder.høyre == null)// sjekker om høyrebarn finnes
+                if (p.forelder.høyre == null) {// sjekker om høyrebarn finnes
                     p = p.forelder;
-                while (p.venstre != null || p.høyre != null) {
-                    if (p.venstre != null) {
-                        p = p.venstre;
-                    } else {
-                        p = p.høyre;
+                } else {
+                    p = p.forelder.høyre;
+                    while (p.venstre != null || p.høyre != null) {
+                        if (p.venstre != null) {
+                            p = p.venstre;
+                        } else {
+                            p = p.høyre;
+                        }
                     }
                 }
-
             }
 
-
         }
+
         return p;
     }
 
