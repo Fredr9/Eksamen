@@ -229,13 +229,20 @@ public class EksamenSBinTre<T> {
         ArrayList<T> elementer = new ArrayList<>();
 
         Queue<Node> queue = new ArrayDeque<>(); // lager en kø
-        Node<T> p = rot;
-        queue.add(p);
+        queue.add(rot); // Setter roten først i køen
 
-        while (true) {
-            queue.remove();
+        while (true) { // så lenge nodefoerstikoen ikke er null kjører løkken.
+            if (queue.isEmpty()) break;
+            Node<T> nodefoerstIKoen = queue.remove();
+            elementer.add(nodefoerstIKoen.verdi);
+            if (nodefoerstIKoen.venstre != null) {
+                queue.add(nodefoerstIKoen.venstre); // så lenge venstrebarn ikke er null legges det i køen
+            } else if (nodefoerstIKoen.høyre != null) {
+                queue.add(nodefoerstIKoen.høyre);  // så lenge høyrebarn ikke er null legges det i køen
+            }
 
         }
+        return elementer;
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
