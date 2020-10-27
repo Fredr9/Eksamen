@@ -215,7 +215,29 @@ public class EksamenSBinTre<T> {
 
 
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        // Benytter meg av samme teknikk som i serialize oppgaven
+
+        Queue<Node> queue = new ArrayDeque<>(); // lager en kø
+        if (rot == null) {
+            return;
+        }
+        queue.add(rot); // Setter roten først i køen
+
+        while (true) { // så lenge nodefoerstikoen ikke er null kjører løkken.
+            if (queue.isEmpty()) break;
+            Node<T> nodefoerstIKoen = queue.remove();
+            if (nodefoerstIKoen.venstre != null) {
+                queue.add(nodefoerstIKoen.venstre); // så lenge venstrebarn ikke er null legges det i køen
+            }
+            if (nodefoerstIKoen.høyre != null) {
+                queue.add(nodefoerstIKoen.høyre);  // så lenge høyrebarn ikke er null legges det i køen
+            }
+            nodefoerstIKoen.forelder = null;
+            nodefoerstIKoen.høyre = null;
+            nodefoerstIKoen.venstre = null;
+        }
+        rot = null;
+        antall = 0;
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
