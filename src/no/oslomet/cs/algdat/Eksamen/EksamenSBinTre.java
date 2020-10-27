@@ -133,37 +133,42 @@ public class EksamenSBinTre<T> {
             return false;
         }
 
-        Node<T> p = rot, q = null;
+        Node<T> p = rot, parent = null;
 
         while (p != null) {
             int sammenligning = comp.compare(verdi, p.verdi);
             if (sammenligning < 0) {
-                q = p;
+                parent = p;
                 p = p.venstre;
             } else if (sammenligning > 0) {
-                q = p;
+                parent = p;
                 p = p.høyre;
-            } else break;
+            } else break; // Fant verdien man skal slette
         }
         if (p == null) {
             return false;
         }
 
+        // Vi skal fjerne p. Må oppdatere pekerne til barna til p med ny peker.
         if (p.venstre == null || p.høyre == null) {
-            Node<T> b = p.venstre != null ? p.venstre : p.høyre;
+            Node<T> barn = p.venstre != null ? p.venstre : p.høyre;
+            if (barn != null) { // oppdaterer forelder hvis den man sletter har barn.
+                barn.forelder = parent;
+            }
             if (p == rot) {
-                rot = b;
-            } else if (p == q.venstre) {
-                q.venstre = b;
+                rot = barn;
+            } else if (p == parent.venstre) {
+                parent.venstre = barn;
             } else {
-                q.høyre = b;
+                parent.høyre = barn;
             }
         } else {
-            Node<T> s = p, r = p.høyre;
+            Node<T> s = p,
+                    r = p.høyre;
 
-            while (rot.venstre != null) {
+            while (r.venstre != null) {
                 s = r;
-                r = rot.venstre;
+                r = r.venstre;
             }
             p.verdi = r.verdi;
 
@@ -181,7 +186,7 @@ public class EksamenSBinTre<T> {
             if (bleFjernet == false) {
                 break;
             } else {
-                antallFjernet++;
+                antallFjernet++;   // øker antallet når en verdi blir fjernet
             }
         }
         return antallFjernet;
