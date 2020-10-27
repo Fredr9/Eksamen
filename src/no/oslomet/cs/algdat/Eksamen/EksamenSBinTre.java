@@ -12,8 +12,13 @@ public class EksamenSBinTre<T> {
 
         System.out.println(førstePostorden(tre.rot).forelder.venstre.forelder.forelder.høyre.høyre);
 
+        ArrayList<Integer> tallFraTreet = new ArrayList<>();
 
+        Oppgave<Integer> oppgave = c -> tallFraTreet.add(c * 2);
 
+        tre.postorden(oppgave);
+
+        System.out.println(tallFraTreet);
     }
 
     private static final class Node<T>   // en indre nodeklasse
@@ -221,7 +226,16 @@ public class EksamenSBinTre<T> {
     }
 
     public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        ArrayList<T> elementer = new ArrayList<>();
+
+        Queue<Node> queue = new ArrayDeque<>(); // lager en kø
+        Node<T> p = rot;
+        queue.add(p);
+
+        while (true) {
+            queue.remove();
+
+        }
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
