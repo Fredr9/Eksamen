@@ -1,6 +1,7 @@
 package no.oslomet.cs.algdat.Eksamen;
 
 
+import java.io.NotActiveException;
 import java.util.*;
 
 public class EksamenSBinTre<T> {
@@ -126,11 +127,65 @@ public class EksamenSBinTre<T> {
 
 
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        // benytter kompendie 5.2.8 som beskrevet i oppgaveteksten
+        // Skriver om litt, liker å bruke {} på if for eksempel.
+        if (verdi == null) {
+            return false;
+        }
+
+        Node<T> p = rot, q = null;
+
+        while (p != null) {
+            int sammenligning = comp.compare(verdi, p.verdi);
+            if (sammenligning < 0) {
+                q = p;
+                p = p.venstre;
+            } else if (sammenligning > 0) {
+                q = p;
+                p = p.høyre;
+            } else break;
+        }
+        if (p == null) {
+            return false;
+        }
+
+        if (p.venstre == null || p.høyre == null) {
+            Node<T> b = p.venstre != null ? p.venstre : p.høyre;
+            if (p == rot) {
+                rot = b;
+            } else if (p == q.venstre) {
+                q.venstre = b;
+            } else {
+                q.høyre = b;
+            }
+        } else {
+            Node<T> s = p, r = p.høyre;
+
+            while (rot.venstre != null) {
+                s = r;
+                r = rot.venstre;
+            }
+            p.verdi = r.verdi;
+
+            if(s != p){s.venstre = r.høyre;}
+            else{s.høyre = r.høyre;}
+        }
+        antall--;
+        return true;
     }
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        int antallFjernet = 0; // Lager en "teller"
+        while(true) { // så lenge den valgte verdien er finnes i treet fjernes det.
+            boolean bleFjernet = fjern(verdi); // forsøker å fjerne verdien, returnerer om det gikk eller ikke. Går det ikke er det ikke flere verdier.
+            if (bleFjernet == false) {
+                break;
+            } else {
+                antallFjernet++;
+            }
+        }
+        return antallFjernet;
+
     }
 
     public int antall(T verdi) {
@@ -237,16 +292,20 @@ public class EksamenSBinTre<T> {
             elementer.add(nodefoerstIKoen.verdi);
             if (nodefoerstIKoen.venstre != null) {
                 queue.add(nodefoerstIKoen.venstre); // så lenge venstrebarn ikke er null legges det i køen
-            } else if (nodefoerstIKoen.høyre != null) {
+            }
+            if (nodefoerstIKoen.høyre != null) {
                 queue.add(nodefoerstIKoen.høyre);  // så lenge høyrebarn ikke er null legges det i køen
             }
-
         }
         return elementer;
     }
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        // Benyttet kompendie programkode 5.2.3 som inspirasjon.
+        EksamenSBinTre<K> tre = new EksamenSBinTre<K>(c);  // Komparatoren
+        data.forEach(element -> tre.leggInn(element)); // lager treet
+        return tre;  // returnerer treet i nivåorden
+
     }
 
 
