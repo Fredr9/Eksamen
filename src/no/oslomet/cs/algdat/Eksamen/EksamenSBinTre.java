@@ -6,16 +6,16 @@ import java.util.*;
 public class EksamenSBinTre<T> {
 
     public static void main(String[] args) {
-        Integer[] a = {4, 7, 2,3,2,1,5, 9, 4, 10, 8, 7, 4, 6};
+        Integer[] a = {4, 7, 2, 9, 4};
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
-       // System.out.println(tre.antall());
+        // System.out.println(tre.antall());
         //System.out.println(tre.antall(2));
-       // System.out.println(tre.antall(4));
-       // System.out.println(tre.antall(7));
-       // System.out.println(tre.antall(10));
+        // System.out.println(tre.antall(4));
+        // System.out.println(tre.antall(7));
+        // System.out.println(tre.antall(10));
         System.out.println(Arrays.toString(a));
-        System.out.println( førstePostorden(tre.rot));
+        System.out.println(førstePostorden(tre.rot));
 
     }
 
@@ -157,40 +157,82 @@ public class EksamenSBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
+        Node<T> q = p.forelder;
+
+        if (q != null) { // sjekker om p er null, hvis ikke så er p forelder.
+            p = q;
+        }
+
         while (true) {  // så lenge p ikke er null går man gjennom treet
             if (p.venstre != null) // når p.venstre ikke er null
-            p = p.venstre;          // så settes p til p.venstre
-            else if(p.høyre != null) p = p.høyre; // når p.høyre ikek er null settes p til p.høyre
-            else return  p;         // til slutt returneres p som første Post orden
-                                    // siden p venstre er null så må p.høyre være første post orden.
+                p = p.venstre;          // så settes p til p.venstre
+            else if (p.høyre != null) p = p.høyre; // når p.høyre ikek er null settes p til p.høyre
+            else return p;         // til slutt returneres p som første Post orden
+            // siden p venstre er null så må p.høyre være første post orden.
 
         }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
+        if (p.forelder == null) { // sjekker at p.forelder ikke er null
+            return null;
+        } else {
+            if (p == p.forelder.høyre) { // sjekker p er høyrebarn
+                p = p.forelder; // oppdaterer p
+            } else {
+                if (p.forelder.høyre == null)// sjekker om høyrebarn finnes
+                    {
+                        p = p.forelder;
+                    } else {
+                        p = p.forelder.høyre;
+                    }
+                    do {
+                        if (p.venstre != null) {
+                            p = p.venstre;
+                        } else {
+                            p = p.høyre;
+                        }
+                    }
+                    // if (p.venstre != null) {
+                    //    p = p.venstre;
+                    //} else if (p.høyre != null) {
+                    //   p = p.høyre;
+                    //} else {
+                    //   return null;
+                    // }
+                    while (p.venstre != null || p.høyre != null);
 
-        return p.forelder;
-    }
-
-    public void postorden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
-
-    public void postordenRecursive(Oppgave<? super T> oppgave) {
-        postordenRecursive(rot, oppgave);
-    }
-
-    private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
-
-    public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
-
-    static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
-    }
+                    return null;
+                }
 
 
-} // ObligSBinTre
+            }
+        return p;
+        }
+
+
+
+
+
+        public void postorden (Oppgave < ? super T > oppgave){
+            throw new UnsupportedOperationException("Ikke kodet ennå!");
+        }
+
+        public void postordenRecursive (Oppgave < ? super T > oppgave){
+            postordenRecursive(rot, oppgave);
+        }
+
+        private void postordenRecursive (Node < T > p, Oppgave < ? super T > oppgave){
+            throw new UnsupportedOperationException("Ikke kodet ennå!");
+        }
+
+        public ArrayList<T> serialize () {
+            throw new UnsupportedOperationException("Ikke kodet ennå!");
+        }
+
+        static <K > EksamenSBinTre < K > deserialize(ArrayList < K > data, Comparator < ? super K > c) {
+            throw new UnsupportedOperationException("Ikke kodet ennå!");
+        }
+
+
+    } // ObligSBinTre
