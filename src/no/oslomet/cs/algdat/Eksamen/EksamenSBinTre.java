@@ -10,6 +10,9 @@ public class EksamenSBinTre<T> {
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
 
+        System.out.println(førstePostorden(tre.rot).forelder.venstre.forelder.forelder.høyre.høyre);
+
+
 
     }
 
@@ -195,10 +198,11 @@ public class EksamenSBinTre<T> {
 
 
     public void postorden(Oppgave<? super T> oppgave) {
-        Node<T> p = rot; // starter i roten slik at man får med hele "treet"
-        p = førstePostorden(p);
-        while(true){
-            p = nestePostorden(p);
+        Node<T> p = rot;
+        p = førstePostorden(p); // gjør så p blir første noden postorden
+        while (p != null) { // så lenge ikke p er null så kjører loopen
+            oppgave.utførOppgave(p.verdi);
+            p = nestePostorden(p); // oppdaterer p helt til den blir null og bryter ut av løkka
         }
     }
 
@@ -207,6 +211,12 @@ public class EksamenSBinTre<T> {
     }
 
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
+        // brukt traversering uten rekursjon 5.1.10 i kompendie der det sto om preorden
+        // endret rekkefølge så man går igjennom postorden, altså satt metoden utførOppgave til slutt.
+        if (p.venstre != null) postordenRecursive(p.venstre, oppgave);
+        if (p.høyre != null) postordenRecursive(p.høyre, oppgave);
+        oppgave.utførOppgave(p.verdi); // denne må stå til slutt siden det er postorden vi skal
+        // gjennomføre her.
 
     }
 
