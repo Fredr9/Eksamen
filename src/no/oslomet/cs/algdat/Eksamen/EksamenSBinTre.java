@@ -173,8 +173,11 @@ public class EksamenSBinTre<T> {
             }
             p.verdi = r.verdi;
 
-            if(s != p){s.venstre = r.høyre;}
-            else{s.høyre = r.høyre;}
+            if (s != p) {
+                s.venstre = r.høyre;
+            } else {
+                s.høyre = r.høyre;
+            }
         }
         antall--;
         return true;
@@ -182,7 +185,7 @@ public class EksamenSBinTre<T> {
 
     public int fjernAlle(T verdi) {
         int antallFjernet = 0; // Lager en "teller"
-        while(true) { // så lenge den valgte verdien er finnes i treet fjernes det.
+        while (true) { // så lenge den valgte verdien er finnes i treet fjernes det.
             boolean bleFjernet = fjern(verdi); // forsøker å fjerne verdien, returnerer om det gikk eller ikke. Går det ikke er det ikke flere verdier.
             if (bleFjernet == false) {
                 break;
@@ -195,23 +198,25 @@ public class EksamenSBinTre<T> {
     }
 
     public int antall(T verdi) {
-        Node<T> denne = rot;
-        int antallet = 0;
+        Node<T> denne = rot; // setter starten i rotnoden
+        int antallet = 0; // hjelpevariabel som teller
 
 
-        while (denne != null) {
-            int sammenligner = comp.compare(verdi, denne.verdi);
-            if (sammenligner < 0) denne = denne.venstre;
+        while (denne != null) { // så lenge denne ikke er null
+            int sammenligner = comp.compare(verdi, denne.verdi); // Bruker compare for å sammenligne
+            if (sammenligner < 0) denne = denne.venstre; // så lenge verdi er mindre enn denne verdi
 
             else {
-                if (sammenligner == 0) antallet++;
+                if (sammenligner == 0) { // hvis tallet sammenlignes er like
+                    antallet++;  // Øker verdien på antallet variablen.
+                }
 
-                denne = denne.høyre;
+                denne = denne.høyre; // oppdaterer denne noden.
             }
 
         }
 
-        return antallet;
+        return antallet;  // returnerer det antallet
     }
 
 
