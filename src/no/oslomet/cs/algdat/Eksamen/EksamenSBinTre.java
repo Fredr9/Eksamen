@@ -1,37 +1,9 @@
 package no.oslomet.cs.algdat.Eksamen;
 
 
-import java.io.NotActiveException;
 import java.util.*;
 
 public class EksamenSBinTre<T> {
-
-    public static void main(String[] args) {
-      /*  Integer[] a = {4, 7, 2, 9, 4, 1, 2};
-
-
-        EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
-        for (int verdi : a) tre.leggInn(verdi);
-
-        System.out.println(førstePostorden(tre.rot).forelder.venstre.forelder.forelder.høyre.høyre);
-
-        ArrayList<Integer> tallFraTreet = new ArrayList<>();
-
-        Oppgave<Integer> oppgave = c -> tallFraTreet.add(c * 2);
-
-        tre.postorden(oppgave);
-
-        System.out.println(tallFraTreet);
-
-       */
-
-        int[] a = {4,7,2,9,4,10,8,7,4,6,1};
-        EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder()); for (int verdi : a) tre.leggInn(verdi);
-        System.out. println(tre.fjernAlle(4)); // 3
-         tre.fjernAlle(7); tre.fjern(8);
-        System.out. println(tre.antall()); // 5
-        System.out. println(tre + " " + tre.toString());
-    }
 
     private static final class Node<T>   // en indre nodeklasse
     {
@@ -124,7 +96,7 @@ public class EksamenSBinTre<T> {
 
         // p er nå null, dvs ute av treet, q er den siste vi passerte
 
-        p = new Node<T>(verdi, q); // oppretter ny node    Oppdaterer foreldrenode
+        p = new Node<>(verdi, q); // oppretter ny node    Oppdaterer foreldrenode
 
         if (q == null) {
             rot = p; // p blir rotnode
@@ -134,6 +106,7 @@ public class EksamenSBinTre<T> {
             q.høyre = p;
         }
         antall++;
+        endringer++;
         return true;
     }
 
@@ -192,6 +165,7 @@ public class EksamenSBinTre<T> {
             }
         }
         antall--;
+        endringer++;
         return true;
     }
 
@@ -200,7 +174,7 @@ public class EksamenSBinTre<T> {
         int antallFjernet = 0; // Lager en "teller"
         while (true) { // så lenge den valgte verdien er finnes i treet fjernes det.
             boolean bleFjernet = fjern(verdi); // forsøker å fjerne verdien, returnerer om det gikk eller ikke. Går det ikke er det ikke flere verdier.
-            if (bleFjernet == false) {
+            if (!bleFjernet) {
                 break;
             } else {
                 antallFjernet++;   // øker antallet når en verdi blir fjernet
@@ -254,9 +228,8 @@ public class EksamenSBinTre<T> {
         }
         queue.add(rot); // Setter roten først i køen
 
-        while (true) { // så lenge nodefoerstikoen ikke er null kjører løkken.
-            if (queue.isEmpty()) break;
-            Node<T> nodefoerstIKoen = queue.remove();
+        while (!queue.isEmpty()) { // så lenge nodefoerstikoen ikke er null kjører løkken.
+            Node nodefoerstIKoen = queue.remove();
             if (nodefoerstIKoen.venstre != null) {
                 queue.add(nodefoerstIKoen.venstre); // så lenge venstrebarn ikke er null legges det i køen
             }
@@ -352,10 +325,8 @@ public class EksamenSBinTre<T> {
         Queue<Node> queue = new ArrayDeque<>(); // lager en kø
         queue.add(rot); // Setter roten først i køen
 
-        while (true) { // så lenge nodefoerstikoen ikke er null kjører løkken.
-            if (queue.isEmpty()) {
-                break;
-            }// bryter ut når køen er tom
+
+        while (!queue.isEmpty()) { // bryter ut når køen er tom
             Node<T> nodefoerstIKoen = queue.remove();
             elementer.add(nodefoerstIKoen.verdi); // Legger inn verdien til noden
             if (nodefoerstIKoen.venstre != null) {
@@ -370,8 +341,8 @@ public class EksamenSBinTre<T> {
 
     static <K> EksamenSBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
         // Benyttet kompendie programkode 5.2.3 som inspirasjon.
-        EksamenSBinTre<K> tre = new EksamenSBinTre<K>(c);  // Komparatoren
-        data.forEach(element -> tre.leggInn(element)); // lager treet
+        EksamenSBinTre<K> tre = new EksamenSBinTre<>(c);  // Komparatoren
+        data.forEach(tre::leggInn); // lager treet
         return tre;  // returnerer treet i nivåorden
 
     }
