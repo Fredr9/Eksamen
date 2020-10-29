@@ -14,18 +14,38 @@ Se oblig-tekst for alle krav, og husk spesielt på følgende:
 
 # Beskrivelse av oppgaveløsning (4-8 linjer/setninger per oppgave)
 
+Angående warnings:
+Non-ASCII characters in an identifier :11 :
+     Den ene noden kalles høyre fra oppgaven,som ikke er ASCII standard, så denne har j
+     eg bare latt være siden de 
+     som har laget eksamen har laget den.
+Private field 'endringer' is assigned but never accessed : 36
+     int endringer ser jeg ikke at vi skal bruke noe sted, men siden den var der fra før 
+     så lar jeg den være.
+Method 'inneholder(T)' is never used :47
+    Det samme med inneholder metoden, som ovenfor, ikke benyttet.
+Return value of the method is never used: 84
+  legginn return value blir ikke brukt, siden den returnerer true, men legger inn    
+  verdier i treet.
+    
+Non-ASCII characters in an identifier: 249
+  Førstepostorden har ø i seg som ikke er ASCII standard, den er laget av de som har 
+  laget eksamen så lar den ligge.
+  
+Det er totalt 5 warnings som jeg ikke har gjort noe med.
+
 Jeg har brukt git til å dokumentere arbeidet mitt, jeg har 23 commits totalt, og hver logg-melding forklarer hva jeg har gjort. 
 
  * Oppgave 1:  Her har jeg benyttet kompendie slik som beskrevet i oppgaveteksten. 
-              Sjekker om det er nullverdier som skal legges inn, dette er ikke lov,
-              også benyttes while løkke så lenge p ikke er lik null så oppdateres p.
-              hvis q er lik null så blir p rotnode, til slutt oppdateres antall.
+               Sjekker om det er nullverdier som skal legges inn, dette er ikke lov,
+               også benyttes while løkke så lenge p ikke er lik null så oppdateres p.
+               hvis q er lik null så blir p rotnode, til slutt oppdateres antall.
 
  * Oppgave 2: Lager først en node kalt "denne" som settes til rot, lager også en 
-             hjelpevariabel kalt antallet som skal telle hvor mange ganger tallet     
-             repeteres., Bruker en while løkke for å sammenligne verdiene, bruker
-             compare funksjonen for å sjekke om verdien finnes. Øker antallet om den 
-             returerner 0 (som vil si at den er lik)
+              hjelpevariabel kalt antallet som skal telle hvor mange ganger tallet     
+              repeteres., Bruker en while løkke for å sammenligne verdiene, bruker
+              compare funksjonen for å sjekke om verdien finnes. Øker antallet om den 
+              returerner 0 (som vil si at den er lik)
              
  * Oppgave 3: Her har jeg benyttet kompendie 5.1.7 Først lagen en node osm settes til 
               p.forelder og så lenge p ikke er null så sjekker man om p.venstre ikke er 
@@ -63,4 +83,5 @@ Jeg har brukt git til å dokumentere arbeidet mitt, jeg har 23 commits totalt, o
               blir den fjernet så øker antallfjernet telleren. Returnerer antallFjernet. 
               i nullstill har jeg benyttet meg av samme teknikk som i serialize metoden, 
               men lagt til at man oppdaterer nodeførstikøen.forelder .høyre og .venstre 
-              til null helt til køen er tom. Helt til sllutt oppdateres rot til null og antall til 0.
+              til null helt til køen er tom. Helt til sllutt oppdateres rot til null og 
+              antall til 0.
