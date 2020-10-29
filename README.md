@@ -19,18 +19,26 @@ Non-ASCII characters in an identifier :11 :
      Den ene noden kalles høyre fra oppgaven,som ikke er ASCII standard, så denne har j
      eg bare latt være siden de 
      som har laget eksamen har laget den.
+     
+     
 Private field 'endringer' is assigned but never accessed : 36
      int endringer ser jeg ikke at vi skal bruke noe sted, men siden den var der fra før 
      så lar jeg den være.
+     
+     
 Method 'inneholder(T)' is never used :47
     Det samme med inneholder metoden, som ovenfor, ikke benyttet.
+    
+    
 Return value of the method is never used: 84
   legginn return value blir ikke brukt, siden den returnerer true, men legger inn    
   verdier i treet.
+  
     
 Non-ASCII characters in an identifier: 249
   Førstepostorden har ø i seg som ikke er ASCII standard, den er laget av de som har 
   laget eksamen så lar den ligge.
+  
   
 Det er totalt 5 warnings som jeg ikke har gjort noe med.
 
