@@ -7,7 +7,9 @@ import java.util.*;
 public class EksamenSBinTre<T> {
 
     public static void main(String[] args) {
-        Integer[] a = {4, 7, 2, 9, 4, 1, 2};
+      /*  Integer[] a = {4, 7, 2, 9, 4, 1, 2};
+
+
         EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder());
         for (int verdi : a) tre.leggInn(verdi);
 
@@ -20,6 +22,15 @@ public class EksamenSBinTre<T> {
         tre.postorden(oppgave);
 
         System.out.println(tallFraTreet);
+
+       */
+
+        int[] a = {4,7,2,9,4,10,8,7,4,6,1};
+        EksamenSBinTre<Integer> tre = new EksamenSBinTre<>(Comparator.naturalOrder()); for (int verdi : a) tre.leggInn(verdi);
+        System.out. println(tre.fjernAlle(4)); // 3
+         tre.fjernAlle(7); tre.fjern(8);
+        System.out. println(tre.antall()); // 5
+        System.out. println(tre + " " + tre.toString());
     }
 
     private static final class Node<T>   // en indre nodeklasse
@@ -134,7 +145,8 @@ public class EksamenSBinTre<T> {
             return false;
         }
 
-        Node<T> p = rot, parent = null;
+        Node<T> p = rot, parent = null; // bytter navn på enkelte varibaler for syntes det blir
+        // mer oversiktlig
 
         while (p != null) {
             int sammenligning = comp.compare(verdi, p.verdi);
@@ -184,6 +196,7 @@ public class EksamenSBinTre<T> {
     }
 
     public int fjernAlle(T verdi) {
+
         int antallFjernet = 0; // Lager en "teller"
         while (true) { // så lenge den valgte verdien er finnes i treet fjernes det.
             boolean bleFjernet = fjern(verdi); // forsøker å fjerne verdien, returnerer om det gikk eller ikke. Går det ikke er det ikke flere verdier.
@@ -193,9 +206,21 @@ public class EksamenSBinTre<T> {
                 antallFjernet++;   // øker antallet når en verdi blir fjernet
             }
         }
-        return antallFjernet;
+        return antallFjernet; // returner antall som er  fjernet
+
+
+        /*
+        int verdiAntall = 0;
+        while (fjern(verdi)) {
+            verdiAntall++;
+        }
+
+        return verdiAntall;
+
+         */
 
     }
+
 
     public int antall(T verdi) {
         Node<T> denne = rot; // setter starten i rotnoden
@@ -238,16 +263,17 @@ public class EksamenSBinTre<T> {
             if (nodefoerstIKoen.høyre != null) {
                 queue.add(nodefoerstIKoen.høyre);  // så lenge høyrebarn ikke er null legges det i køen
             }
-            nodefoerstIKoen.forelder = null;
-            nodefoerstIKoen.høyre = null;
-            nodefoerstIKoen.venstre = null;
+            nodefoerstIKoen.forelder = null;  // oppdaterer forelder til node til null
+            nodefoerstIKoen.høyre = null; // oppdaterer høyre barn til node til null
+            nodefoerstIKoen.venstre = null;  // oppdaterer venstre barn til node til null
         }
-        rot = null;
-        antall = 0;
+        rot = null;  // Oppdaterer rot til null
+        antall = 0; // setter antall til 0
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        Node<T> q = p.forelder;
+        // hentet insoirasjon fra kompendie 5.1.7
+        Node<T> q = p.forelder; // setter q til å være p.forelder
 
         if (q != null) { // sjekker om p er null, hvis ikke så er p forelder.
             p = q;
@@ -255,9 +281,15 @@ public class EksamenSBinTre<T> {
 
         while (true) {  // så lenge p ikke er null går man gjennom treet
             if (p.venstre != null) // når p.venstre ikke er null
-                p = p.venstre;          // så settes p til p.venstre
-            else if (p.høyre != null) p = p.høyre; // når p.høyre ikek er null settes p til p.høyre
-            else return p;         // til slutt returneres p som første Post orden
+            {
+                p = p.venstre;
+            }         // så settes p til p.venstre
+            else if (p.høyre != null) {
+                p = p.høyre;
+            }// når p.høyre ikek er null settes p til p.høyre
+            else {
+                return p;
+            }        // til slutt returneres p som første Post orden
             // siden p venstre er null så må p.høyre være første post orden.
 
         }
@@ -274,7 +306,8 @@ public class EksamenSBinTre<T> {
                     p = p.forelder;
                 } else {
                     p = p.forelder.høyre;
-                    while (p.venstre != null || p.høyre != null) {
+                    while (p.venstre != null || p.høyre != null) { // sjekker om barna ikke er null,
+                        // testene under sjekker hvilket av de som evnt ikke er null
                         if (p.venstre != null) {
                             p = p.venstre;
                         } else {
@@ -286,7 +319,7 @@ public class EksamenSBinTre<T> {
 
         }
 
-        return p;
+        return p;  // returnerer nestepostorden
     }
 
 
@@ -320,9 +353,11 @@ public class EksamenSBinTre<T> {
         queue.add(rot); // Setter roten først i køen
 
         while (true) { // så lenge nodefoerstikoen ikke er null kjører løkken.
-            if (queue.isEmpty()) break;
+            if (queue.isEmpty()) {
+                break;
+            }// bryter ut når køen er tom
             Node<T> nodefoerstIKoen = queue.remove();
-            elementer.add(nodefoerstIKoen.verdi);
+            elementer.add(nodefoerstIKoen.verdi); // Legger inn verdien til noden
             if (nodefoerstIKoen.venstre != null) {
                 queue.add(nodefoerstIKoen.venstre); // så lenge venstrebarn ikke er null legges det i køen
             }
@@ -343,3 +378,4 @@ public class EksamenSBinTre<T> {
 
 
 } // ObligSBinTre
+
