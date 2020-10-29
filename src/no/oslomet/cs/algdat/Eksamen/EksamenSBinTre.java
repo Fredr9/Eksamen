@@ -99,6 +99,7 @@ public class EksamenSBinTre<T> {
     }
 
     public boolean leggInn(T verdi) {
+        // Her er mye inspirasjon hentet fra kompendie som beksrevet i oppgaven
         Objects.requireNonNull(verdi, "Ikke lov med nullverdier");
 
         Node<T> p = rot, q = null;  // p starter i roten
@@ -117,8 +118,8 @@ public class EksamenSBinTre<T> {
         if (q == null) {
             rot = p; // p blir rotnode
         } else if (sammenligning < 0) {
-            q.venstre = p; // venstre barn til q
-        } else {
+            q.venstre = p; // venstre barn til q oppdateres til p hvis sammenligningen er negativ
+        } else {           // Ellers oppdateres p til q.høyre
             q.høyre = p;
         }
         antall++;
@@ -128,7 +129,7 @@ public class EksamenSBinTre<T> {
 
     public boolean fjern(T verdi) {
         // benytter kompendie 5.2.8 som beskrevet i oppgaveteksten
-        // Skriver om litt, liker å bruke {} på if for eksempel.
+        // Skriver om litt, liker å bruke {} på if sjekker for eksempel.
         if (verdi == null) {
             return false;
         }
