@@ -82,7 +82,7 @@ public class EksamenSBinTre<T> {
     }
 
     public boolean leggInn(T verdi) {
-        // Her er mye inspirasjon hentet fra kompendie som beksrevet i oppgaven
+        // Her er mye inspirasjon hentet fra kompendie som beskrevet i oppgaven
         Objects.requireNonNull(verdi, "Ikke lov med nullverdier");
 
         Node<T> p = rot, q = null;  // p starter i roten
@@ -182,17 +182,6 @@ public class EksamenSBinTre<T> {
         }
         return antallFjernet; // returner antall som er  fjernet
 
-
-        /*
-        int verdiAntall = 0;
-        while (fjern(verdi)) {
-            verdiAntall++;
-        }
-
-        return verdiAntall;
-
-         */
-
     }
 
 
@@ -203,7 +192,9 @@ public class EksamenSBinTre<T> {
 
         while (denne != null) { // så lenge denne ikke er null
             int sammenligner = comp.compare(verdi, denne.verdi); // Bruker compare for å sammenligne
-            if (sammenligner < 0) denne = denne.venstre; // så lenge verdi er mindre enn denne verdi
+            if (sammenligner < 0) {
+                denne = denne.venstre;
+            } // så lenge verdi er mindre enn denne verdi
 
             else {
                 if (sammenligner == 0) { // hvis tallet sammenlignes er like
@@ -215,21 +206,21 @@ public class EksamenSBinTre<T> {
 
         }
 
-        return antallet;  // returnerer det antallet
+        return antallet;  // returnerer antallet man finner av den aktuelle noden
     }
 
 
     public void nullstill() {
         // Benytter meg av samme teknikk som i serialize oppgaven
 
-        Queue<Node> queue = new ArrayDeque<>(); // lager en kø
+        Queue<Node<T>> queue = new ArrayDeque<>(); // lager en kø
         if (rot == null) {
             return;
         }
         queue.add(rot); // Setter roten først i køen
 
         while (!queue.isEmpty()) { // så lenge nodefoerstikoen ikke er null kjører løkken.
-            Node nodefoerstIKoen = queue.remove();
+            Node<T> nodefoerstIKoen = queue.remove();
             if (nodefoerstIKoen.venstre != null) {
                 queue.add(nodefoerstIKoen.venstre); // så lenge venstrebarn ikke er null legges det i køen
             }
@@ -322,7 +313,7 @@ public class EksamenSBinTre<T> {
     public ArrayList<T> serialize() {
         ArrayList<T> elementer = new ArrayList<>();
 
-        Queue<Node> queue = new ArrayDeque<>(); // lager en kø
+        Queue<Node<T>> queue = new ArrayDeque<>(); // lager en kø
         queue.add(rot); // Setter roten først i køen
 
 
