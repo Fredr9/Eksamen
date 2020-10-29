@@ -45,16 +45,16 @@ Jeg har brukt git til å dokumentere arbeidet mitt, jeg har 23 commits totalt, o
               hjelpevariabel kalt antallet som skal telle hvor mange ganger tallet     
               repeteres., Bruker en while løkke for å sammenligne verdiene, bruker
               compare funksjonen for å sjekke om verdien finnes. Øker antallet om den 
-              returerner 0 (som vil si at den er lik)
+              returnerer 0 (som vil si at den er lik)
              
- * Oppgave 3: Her har jeg benyttet kompendie 5.1.7 Først lagen en node osm settes til 
+ * Oppgave 3: Her har jeg benyttet kompendie 5.1.7 Først lagen en node som settes til 
               p.forelder og så lenge p ikke er null så sjekker man om p.venstre ikke er 
               null, så oppdateres p til p.venstre hvis høyre ikke er null oppdateres p 
-              til p.høyre elelrs returneres p og da er det førstePostorden som   
+              til p.høyre ellers returneres p og da er det førstePostorden som   
               returneres. nestePostorden er det brukt en rekke if tester som sjekker 
               hvilke barn p er. også sjekker en while løkke om p.venstre eller p.høyre 
-              er null, der p oppdateres om p.venmstre ikke er null til p.venstre, ellers 
-              p til p.høyre. til slutt returnees neste postorden
+              er null, der p oppdateres om p.venstre ikke er null til p.venstre, ellers 
+              p til p.høyre. til slutt returneres neste postorden.
             
  
  * Oppgave 4: Lager først en node som peker til rot, gjør så p blir førstePostorden med 
