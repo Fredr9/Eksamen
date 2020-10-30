@@ -1,7 +1,7 @@
 # Mappeeksamen i Algoritmer og Datastrukturer Høst 2020
 
 # Krav til innlevering
-Mappeeksamen for Fredrik Mattias Vogt s315714
+Mappeeksamen for kandidat 283
 Se oblig-tekst for alle krav, og husk spesielt på følgende:
 
 * Git er brukt til å dokumentere arbeid (minst 2 commits per oppgave, beskrivende commit-meldinger)	
