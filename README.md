@@ -42,7 +42,7 @@ Non-ASCII characters in an identifier: 249
   
 Det er totalt 5 warnings som jeg ikke har gjort noe med.
 
-Jeg har brukt git til å dokumentere arbeidet mitt, jeg har 23 commits totalt, og hver logg-melding forklarer hva jeg har gjort. 
+Jeg har brukt git til å dokumentere arbeidet mitt, jeg har 32 commits totalt, og hver logg-melding forklarer hva jeg har gjort. 
 
  * Oppgave 1:  Her har jeg benyttet kompendie slik som beskrevet i oppgaveteksten. 
                Sjekker om det er nullverdier som skal legges inn, dette er ikke lov,
